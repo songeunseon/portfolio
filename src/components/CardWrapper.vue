@@ -36,15 +36,15 @@ onMounted(() => {
   align-items: center;
 
   .content {
-    width: 280px;
-    height: 280px;
+    width: 50vw;
+    height: 50vh;
     background: #1e1e1e;
-    color: #fff;
+    color: #e9e9e9;
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     transition: all 0.6s ease;
-    transform: scale(0.8);
+    transform: scale(0.3);
     opacity: 0.5;
     text-align: center;
   }

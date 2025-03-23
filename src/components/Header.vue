@@ -39,7 +39,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .header {
-  width: 200px;
+  width: 10vw;
   height: 100vh;
   position: fixed;
   top: 0;

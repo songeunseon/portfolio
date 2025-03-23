@@ -46,7 +46,7 @@ onMounted(() => {
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  margin-left: 200px;
+  margin-left: 10vw;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
   &::-webkit-scrollbar {
@@ -58,5 +58,6 @@ section {
   height: 100vh;
   scroll-snap-align: start;
   scroll-margin-top: 60px;
+  background-color: #b0d8df;
 }
 </style>
