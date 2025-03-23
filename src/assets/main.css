@@ -3,14 +3,11 @@
   margin: 0;
   box-sizing: border-box;
 }
-#__vue-devtools-container__ {
-  display: none !important;
-}
-
 body {
   padding: 0;
   margin: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden; /* scroll은 내부 컨테이너로 이동! */
+  scroll-behavior: smooth;
 }

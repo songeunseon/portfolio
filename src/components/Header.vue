@@ -5,72 +5,80 @@
     </div>
     <nav>
       <ul class="menu">
-        <li v-for="item in menuItems" :key="item.path">
-          <router-link :to="item.path">{{ item.name }}</router-link>
-        </li>
+        <li :class="{ active: activeSection === 'home' }"><a href="#home">Home</a></li>
+        <li :class="{ active: activeSection === 'about' }"><a href="#about">About</a></li>
+        <li :class="{ active: activeSection === 'projects' }"><a href="#projects">Projects</a></li>
+        <li :class="{ active: activeSection === 'contact' }"><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 </template>
 
 <script setup>
-import { menuItems } from '@/utils/item'
+import { onMounted, ref } from 'vue'
+
+const activeSection = ref('home')
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          activeSection.value = entry.target.id
+        }
+      })
+    },
+    { threshold: 0.5 }
+  )
+
+  document.querySelectorAll('section').forEach((section) => {
+    observer.observe(section)
+  })
+})
 </script>
 
-<style lang="scss" scoped>
-$primary-color: #333;
-$hover-color: #b0d8df;
-$transition-speed: 0.3s;
-
+<style scoped lang="scss">
 .header {
   width: 200px;
   height: 100vh;
-  background-color: #333;
-  padding: 15px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+  z-index: 10;
 }
 .logo {
   width: 100%;
-  & img {
+  margin-bottom: 40px;
+
+  img {
     width: 100%;
   }
 }
 .menu {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
   li {
-    position: relative;
-    font-size: 18px;
-    width: 80%;
-    text-align: center;
     a {
-      display: block;
-      width: 100%;
+      color: #ccc;
       text-decoration: none;
-      color: #fff;
       font-weight: bold;
-      border-radius: 5px;
-      padding: 10px 0;
-      transition:
-        background-color $transition-speed,
-        color $transition-speed;
 
       &:hover {
-        width: 100%;
-        background-color: $hover-color;
-        color: $primary-color;
+        color: #fff;
       }
+    }
+
+    &.active a {
+      color: #b0d8df;
     }
   }
 }
