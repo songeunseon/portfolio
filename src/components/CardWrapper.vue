@@ -21,7 +21,7 @@ onMounted(() => {
     ([entry]) => {
       visible.value = entry.isIntersecting
     },
-    { threshold: 0.4 }
+    { threshold: 0.4 },
   )
 
   observer.observe(card.value)
@@ -47,6 +47,8 @@ onMounted(() => {
     transform: scale(0.3);
     opacity: 0.5;
     text-align: center;
+    display: flex;
+    align-items: center;
   }
 
   &.visible .content {

@@ -1,9 +1,8 @@
 <template>
   <CardWrapper id="home">
-    <h2>Welcome!</h2>
     <div class="home-profile">
-      <img src="/image/ses.jpg">
-      <p>프론트엔드 개발자 송은선의 포트폴리오입니다.</p>
+      <img src="/image/ses.jpg" />
+      <p>프론트엔드 개발자 송은선입니다</p>
     </div>
     <!-- <div>
       <p>자기소개서 ▼</p>
@@ -18,14 +17,16 @@ import CardWrapper from '@/components/CardWrapper.vue'
 <style lang="scss" scoped>
 .home-profile {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
 
   & img {
     width: 200px;
+    border-radius: 10px;
   }
   & p {
     font-size: 20px;
+    padding: 20px;
   }
 }
 </style>
