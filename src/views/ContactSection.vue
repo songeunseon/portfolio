@@ -27,22 +27,22 @@
       <div class="part" @mouseenter="showMailPreview = true" @mouseleave="showMailPreview = false">
         <img src="/image/plane.png" />
         <a href="mailto:ttioni_v0v@naver.com"><p>ttioni_v0v@naver.com</p></a>
+      </div>
 
         <!-- 이메일 타이핑 미리보기 -->
         <div v-if="showMailPreview" class="mail-preview">
           <pre>{{ mailContent }}</pre>
         </div>
-      </div>
 
       <!-- GitHub 항목 -->
       <div class="part" @mouseenter="showGithub = true" @mouseleave="showGithub = false">
         <img src="/image/branch.png" />
         <a href="https://github.com/songeunseon" target="_blank"><p>@songeunseon</p></a>
+      </div>
 
         <div v-if="showGithub" class="github-tooltip">
           👉 제 GitHub에서 더 많은 프로젝트를 확인해보세요!
         </div>
-      </div>
     </div>
   </CardWrapper>
 </template>
@@ -230,11 +230,11 @@ a {
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(-10px);
+    /* transform: translateY(-10px); */
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    /* transform: translateY(0); */
   }
 }
 
