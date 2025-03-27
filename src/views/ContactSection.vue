@@ -29,10 +29,31 @@
         <a href="mailto:ttioni_v0v@naver.com"><p>ttioni_v0v@naver.com</p></a>
       </div>
 
-        <!-- 이메일 타이핑 미리보기 -->
-        <div v-if="showMailPreview" class="mail-preview">
-          <pre>{{ mailContent }}</pre>
+      <!-- 이메일 타이핑 미리보기 -->
+      <div v-if="showMailPreview" class="mail-preview">
+        <table class="mail-table">
+          <tbody>
+            <tr>
+              <td class="label">보내는 사람</td>
+              <td class="value">ttioni_v0v@naver.com</td>
+            </tr>
+            <tr>
+              <td class="label">제목</td>
+              <td class="value">포트폴리오 관련 문의드립니다</td>
+            </tr>
+            <tr>
+              <td class="label" colspan="2">내용</td>
+            </tr>
+            <tr>
+              <td class="body" colspan="2">{{ mailTypedContent }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="email-btn">
+          <p>보내기</p>
+          <img src="/public/image/plane.png" />
         </div>
+      </div>
 
       <!-- GitHub 항목 -->
       <div class="part" @mouseenter="showGithub = true" @mouseleave="showGithub = false">
@@ -40,9 +61,24 @@
         <a href="https://github.com/songeunseon" target="_blank"><p>@songeunseon</p></a>
       </div>
 
-        <div v-if="showGithub" class="github-tooltip">
-          👉 제 GitHub에서 더 많은 프로젝트를 확인해보세요!
-        </div>
+      <div v-if="showGithub" class="github-tooltip">
+        <p><strong>💻 TMI</strong></p>
+        <ul>
+          <li>🧩 <strong>Vue 3</strong> (Composition API와 꽁냥꽁냥 중)</li>
+          <li>📈 <strong>Highcharts</strong>로 차트에 생명 불어넣기</li>
+          <li>📝 <strong>Toast UI Editor</strong> → 에디터도 커스터마이징!</li>
+          <li>🌍 <strong>i18n</strong>으로 다국어 준비 완료!</li>
+          <li>🌀 <strong>React + Three.js</strong>로 우주까지 뻗는 인터랙션</li>
+          <li>📚 정보처리기사 필기 공부 중... (시험도 코드처럼!)</li>
+          <li>🎨 다크모드만 고집하는 편입니다. (밝은 건 눈이 아파요)</li>
+        </ul>
+        <p style="margin-top: 12px">
+          💡 밤 11시, VSCode 켜고 생각해요.<br />
+          “이게 더 나은 방식일까?”<br />
+          <span style="opacity: 0.6">(그리고 커밋 메시지는 늘 고민 중...)</span><br />
+          👀 살짝 들여다보시겠어요?
+        </p>
+      </div>
     </div>
   </CardWrapper>
 </template>
@@ -77,21 +113,20 @@ const stopSlide = () => {
   clearInterval(intervalId.value)
 }
 
-// 이메일 타이핑 효과
 const showMailPreview = ref(false)
-const mailContent = ref('')
+const mailTypedContent = ref('')
 const typingIndex = ref(0)
-const fullMail = `제목: 포트폴리오 관련 문의드립니다\n내용: 안녕하세요. 송은선 개발자님, 포트폴리오 잘 보았습니다.`
-
+const fullBody =
+  '안녕하세요. 저는 Front-end Developer 송은선입니다.\n처음 맡는 일이더라도 늘 최선을 다해 마주해왔고, 모든 작업에 있어 ‘어떻게 하면 더 나아질 수 있을까’를 고민하며 성실하게 임했습니다.\n이 포트폴리오에 담긴 결과들은 그런 과정의 흔적입니다.\n \n짧은 경력이지만 태도는 정직했고, 모르는 걸 두려워하기보단 배울 기회를 반가워했습니다.\n“함께 일하고 싶은 사람인가?”라는 질문에 ‘괜찮네?’라는 생각이 드셨다면, 그건 이미 반은 성공한 것 같습니다.\n \n앞으로도 "함께 일하고 싶은 사람"으로 기억될 수 있도록 성장해 나가겠습니다.\n직접 만나 이야기를 나눌 수 있는 기회를 기다리고 있겠습니다 :)\n감사합니다.'
 let typingTimer = null
 
 watch(showMailPreview, (val) => {
   if (val) {
-    mailContent.value = ''
+    mailTypedContent.value = ''
     typingIndex.value = 0
     typingTimer = setInterval(() => {
-      if (typingIndex.value < fullMail.length) {
-        mailContent.value += fullMail[typingIndex.value]
+      if (typingIndex.value < fullBody.length) {
+        mailTypedContent.value += fullBody[typingIndex.value]
         typingIndex.value++
       } else {
         clearInterval(typingTimer)
@@ -150,17 +185,16 @@ a {
 
 /* 이력서 미리보기 */
 .preview-box {
-  width: 300px;
-  height: 450px;
+  width: 450px;
+  height: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(0, -50%);
   z-index: 100;
   background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 5px;
   perspective: 1000px;
   overflow: hidden;
 }
@@ -204,54 +238,125 @@ a {
   opacity: 0;
 }
 
-/* 이메일 미리보기 (타이핑 영역) */
 .mail-preview {
-  width: 300px;
-  height: 450px;
+  width: 450px;
+  height: 400px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(0, -50%);
-  background: #333;
+  background: #fff;
   padding: 10px;
-  font-size: 10px;
-  border-radius: 6px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  border-radius: 5px;
   z-index: 99;
-  animation: fadeIn 0.3s ease-in-out;
-}
-.mail-preview pre {
-  margin: 0;
-  white-space: pre-line;
-  font-family: 'Courier New', monospace;
-  line-height: 1.4;
+  color: #333;
 }
 
+.mail-table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.mail-table td {
+  padding: 8px;
+  vertical-align: top;
+}
+
+.mail-table .label {
+  width: 80px;
+  text-align: start;
+  font-weight: bold;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.mail-table .value {
+  color: #555;
+}
+
+.mail-table .body {
+  font-size: 12px;
+  padding-top: 12px;
+  text-align: start;
+  font-family: 'Courier New', monospace;
+  line-height: 1.5;
+  white-space: pre-line;
+  font-family: 'SUIT';
+  letter-spacing: 1px;
+}
+.email-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 80px;
+  height: 30px;
+  /* border: 1px solid #333; */
+  border-radius: 5px;
+  background-color: #005fe5;
+  animation: blink 1s infinite;
+  animation-delay: 15s;
+  & p {
+    color: #e1e1e1;
+    font-size: 12px;
+  }
+  & img {
+    width: fit-content;
+    height: 15px;
+  }
+}
+@keyframes blink {
+  0%,
+  100% {
+    background-color: #005fe5;
+  }
+  50% {
+    background-color: #005fe599;
+  }
+}
+/* GitHub 툴팁 */
+.github-tooltip {
+  width: 450px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, -50%);
+  z-index: 100;
+  background: #fff;
+  color: #333;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+.github-tooltip ul {
+  padding-left: 20px;
+  margin: 10px 0;
+  list-style-type: none;
+}
+.github-tooltip li {
+  margin-bottom: 4px;
+  text-align: start;
+}
+.preview-box,
+.mail-preview,
+.github-tooltip {
+  animation: fadeIn 1s ease-in-out;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    /* transform: translateY(-10px); */
   }
   100% {
     opacity: 1;
-    /* transform: translateY(0); */
   }
-}
-
-/* GitHub 툴팁 */
-.github-tooltip {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(0, -50%);
-  background: #555;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  width: 300px;
-  height: 450px;
-  z-index: 99;
-  animation: fadeIn 0.3s ease-in-out;
 }
 </style>

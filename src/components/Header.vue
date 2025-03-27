@@ -28,7 +28,7 @@ onMounted(() => {
         }
       })
     },
-    { threshold: 0.5 }
+    { threshold: 0.5 },
   )
 
   document.querySelectorAll('section').forEach((section) => {
