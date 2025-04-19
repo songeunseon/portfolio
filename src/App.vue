@@ -6,6 +6,7 @@
       <AboutSection />
       <ProjectsSection />
       <ContactSection />
+      <CommunitySection />
     </div>
   </div>
 </template>
@@ -17,6 +18,7 @@ import HomeSection from '@/views/HomeSection.vue'
 import AboutSection from '@/views/AboutSection.vue'
 import ProjectsSection from '@/views/ProjectsSection.vue'
 import ContactSection from '@/views/ContactSection.vue'
+import CommunitySection from '@/views/CommunitySection.vue'
 
 const activeSection = ref('home')
 const container = ref(null)

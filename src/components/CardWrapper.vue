@@ -49,6 +49,7 @@ onMounted(() => {
     text-align: center;
     display: flex;
     align-items: center;
+    flex-direction: column;
   }
 
   &.visible .content {

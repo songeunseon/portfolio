@@ -9,6 +9,9 @@
         <li :class="{ active: activeSection === 'about' }"><a href="#about">About</a></li>
         <li :class="{ active: activeSection === 'projects' }"><a href="#projects">Projects</a></li>
         <li :class="{ active: activeSection === 'contact' }"><a href="#contact">Contact</a></li>
+        <li :class="{ active: activeSection === 'community' }">
+          <a href="#community">Community</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -59,18 +62,25 @@ onMounted(() => {
     width: 100%;
   }
 }
+nav {
+  width: 100%;
+}
 .menu {
+  margin: 0 auto;
   list-style: none;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
-
+  width: 60%;
   li {
+    height: 40px;
+    width: 100%;
     a {
+      width: 100%;
+      font-size: 20px;
       color: #ccc;
       text-decoration: none;
-      font-weight: bold;
 
       &:hover {
         color: #fff;
@@ -79,6 +89,8 @@ onMounted(() => {
 
     &.active a {
       color: #b0d8df;
+      font-size: 25px;
+      font-weight: bold;
     }
   }
 }

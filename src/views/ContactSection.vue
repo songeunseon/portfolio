@@ -1,6 +1,7 @@
 <template>
   <CardWrapper id="contact">
     <div class="partGroup">
+      <p class="title">Contact</p>
       <!-- 이력서 다운로드 -->
       <div class="part" @mouseenter="startSlide" @mouseleave="stopSlide">
         <img src="/image/download.png" />
@@ -54,31 +55,6 @@
           <img src="/public/image/plane.png" />
         </div>
       </div>
-
-      <!-- GitHub 항목 -->
-      <div class="part" @mouseenter="showGithub = true" @mouseleave="showGithub = false">
-        <img src="/image/branch.png" />
-        <a href="https://github.com/songeunseon" target="_blank"><p>@songeunseon</p></a>
-      </div>
-
-      <div v-if="showGithub" class="github-tooltip">
-        <p><strong>💻 TMI</strong></p>
-        <ul>
-          <li>🧩 <strong>Vue 3</strong> (Composition API와 꽁냥꽁냥 중)</li>
-          <li>📈 <strong>Highcharts</strong>로 차트에 생명 불어넣기</li>
-          <li>📝 <strong>Toast UI Editor</strong> → 에디터도 커스터마이징!</li>
-          <li>🌍 <strong>i18n</strong>으로 다국어 준비 완료!</li>
-          <li>🌀 <strong>React + Three.js</strong>로 우주까지 뻗는 인터랙션</li>
-          <li>📚 정보처리기사 필기 공부 중... (시험도 코드처럼!)</li>
-          <li>🎨 다크모드만 고집하는 편입니다. (밝은 건 눈이 아파요)</li>
-        </ul>
-        <p style="margin-top: 12px">
-          💡 밤 11시, VSCode 켜고 생각해요.<br />
-          “이게 더 나은 방식일까?”<br />
-          <span style="opacity: 0.6">(그리고 커밋 메시지는 늘 고민 중...)</span><br />
-          👀 살짝 들여다보시겠어요?
-        </p>
-      </div>
     </div>
   </CardWrapper>
 </template>
@@ -131,7 +107,7 @@ watch(showMailPreview, (val) => {
       } else {
         clearInterval(typingTimer)
       }
-    }, 100)
+    }, 50)
   } else {
     clearInterval(typingTimer)
   }
@@ -153,9 +129,13 @@ const showGithub = ref(false)
   overflow: visible;
   position: relative;
 }
-
+.title {
+  font-size: 50px;
+  text-align: start;
+  width: 80%;
+}
 .part {
-  width: 100%;
+  width: 80%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
