@@ -38,28 +38,55 @@ const onScroll = () => {
 }
 
 onMounted(() => {
+  window.addEventListener('contextmenu', (e) => {
+    e.preventDefault()
+  })
   updateActiveSection()
 })
 </script>
 
 <style scoped>
+body, * {
+  user-select: none;
+}
+#app {
+  display: grid;
+  grid-template-columns: 25% 65%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  grid-column: 1;
+  height: 100vh;
+  background: #222;
+}
+
 .scroll-container {
+  grid-column: 2;
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  margin-left: 10vw;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
   &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+    display: none;
   }
 }
 
 section {
   height: 100vh;
   scroll-snap-align: start;
-  scroll-margin-top: 60px;
-  background-color: #b0d8df;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 1920px;
+  margin: 0 auto;
+  width: 100%;
 }
+
 </style>

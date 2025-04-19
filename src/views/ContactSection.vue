@@ -5,7 +5,7 @@
       <!-- 이력서 다운로드 -->
       <div class="part" @mouseenter="startSlide" @mouseleave="stopSlide">
         <img src="/image/download.png" />
-        <a href="/pdf/이력서.pdf" download>
+        <a href="/pdf/끊임없는 성장을 추구하는 프론트엔드 개발자 송은선.pdf" download>
           <p>송은선 이력서 다운로드</p>
         </a>
       </div>
@@ -69,12 +69,11 @@ const currentIndex = ref(0)
 const intervalId = ref(null)
 
 const imageList = [
-  '/jpg/images-0.jpg',
-  '/jpg/images-1.jpg',
-  '/jpg/images-2.jpg',
-  '/jpg/images-3.jpg',
-  '/jpg/images-4.jpg',
-  '/jpg/images-5.jpg',
+  '/png/images-0.png',
+  '/png/images-1.png',
+  '/png/images-2.png',
+  '/png/images-3.png',
+  '/png/images-4.png',
 ]
 
 const startSlide = () => {

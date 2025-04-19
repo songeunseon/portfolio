@@ -48,7 +48,7 @@ const experienceText = computed(() => {
     years--
     months += 12
   }
-  return `${years}년 ${months}개월 / 총 ${totalDays}일째`
+  return `${years}년 ${months}개월\n총 ${totalDays}일째`
 })
 </script>
 
@@ -64,6 +64,7 @@ const experienceText = computed(() => {
   justify-content: space-evenly;
   gap: 100px;
   width: 100%;
+  height: 100%;
 
   & img {
     width: 200px;
@@ -78,10 +79,13 @@ const experienceText = computed(() => {
 
     p {
       font-size: 20px;
+      line-height: 1.56;
       padding: 10px 0;
       cursor: pointer;
       user-select: none;
       transition: color 0.3s ease;
+      white-space: pre-line;
+      text-align: left;
 
       &.pulse-animate {
         animation: glow 2s ease-in-out infinite;
@@ -90,6 +94,42 @@ const experienceText = computed(() => {
 
       &:hover {
         color: #3a86ff;
+      }
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    gap: 30px;
+
+    & img {
+      width: 150px;
+    }
+
+    .profile-text {
+      align-items: center;
+      text-align: center;
+      width: 100%;
+
+      p {
+        font-size: 20px;
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    gap: 30px;
+
+    & img {
+      width: 130px;
+    }
+
+    .profile-text {
+      align-items: center;
+      text-align: center;
+      width: 100%;
+
+      p {
+        font-size: 15px;
       }
     }
   }
