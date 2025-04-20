@@ -1,5 +1,5 @@
 <template>
-  <CardWrapper id="about">
+  <CardWrapper id="about" :index="1">
     <p class="title">About Me</p>
     <div class="aboutme">
       <div class="card-section">

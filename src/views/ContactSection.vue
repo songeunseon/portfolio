@@ -1,5 +1,5 @@
 <template>
-  <CardWrapper id="contact">
+  <CardWrapper id="contact" :index="3">
     <div class="partGroup">
       <p class="title">Contact</p>
       <!-- 이력서 다운로드 -->

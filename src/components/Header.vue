@@ -8,27 +8,18 @@
     <div class="logo">
       <img src="/main/logo.png" alt="Logo" />
     </div>
-
-    <div class="toggle-icon">
-      {{ isExpanded ? '◀' : '▶' }}
-    </div>
+<!--
+  <div class="toggle-icon">
+    {{ isExpanded ? '▲' : '▼' }}
+  </div>
+-->
 
     <nav>
       <ul class="menu">
-        <li :class="{ active: activeSection === 'home' }">
-          <a href="#home">Home</a>
-        </li>
-        <li :class="{ active: activeSection === 'about' }">
-          <a href="#about">About</a>
-        </li>
-        <li :class="{ active: activeSection === 'projects' }">
-          <a href="#projects">Projects</a>
-        </li>
-        <li :class="{ active: activeSection === 'contact' }">
-          <a href="#contact">Contact</a>
-        </li>
-        <li :class="{ active: activeSection === 'community' }">
-          <a href="#community">Community</a>
+        <li v-for="item in menuItems" :key="item.id" :class="{ active: activeSection === item.id }">
+          <button @click="scrollToSection(item.id)">
+            {{ item.label }}
+          </button>
         </li>
       </ul>
     </nav>
@@ -36,61 +27,51 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue'
+import { ref, watch } from 'vue'
+const props = defineProps({
+  activeSection: String,
+})
 
-const activeSection = ref('home')
 const isExpanded = ref(false)
 
-onMounted(async () => {
-  await nextTick()
+const menuItems = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+  { id: 'community', label: 'Community' },
+]
 
-  history.replaceState(null, '', window.location.pathname)
-  window.scrollTo({ top: 0, behavior: 'auto' })
+const scrollToSection = (id) => {
+  const section = document.getElementById(id)
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' })
+  }
+}
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          activeSection.value = entry.target.id
-        }
-      })
-    },
-    { threshold: 0.5 }
-  )
-
-  document.querySelectorAll('section').forEach((section) => {
-    observer.observe(section)
-  })
-})
 </script>
 
 <style scoped lang="scss">
 .header {
-  width: 60px;
-  height: 100vh;
+  width: 100vw;
+  height: 100px;
   position: fixed;
   top: 0;
   left: 0;
   background: #222;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  padding-top: 30px;
   z-index: 10;
   transition: width 0.5s ease;
-  position: relative;
 
-  &.expanded {
-    width: 220px;
-  }
 }
 
 .logo {
-  width: 100%;
-  margin-bottom: 40px;
+  height: 100px;
 
   img {
-    width: 100%;
+    height: 100%;
   }
 }
 
@@ -101,48 +82,48 @@ onMounted(async () => {
   user-select: none;
   pointer-events: none;
   position: absolute;
-  right: -20px;
-  background-color: #222 !important;
-  width: 20px;
-  height: 50px;
+  bottom: -40px;
+  left: 50%;
+  transform: translate(-50% -50%);
+  background-color: #222;
+  width: 50px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 0 10px 10px;
 }
 
 nav {
-  width: 100%;
+  width: fit-content;
+  margin-right: 5%;
 }
 
 .menu {
   list-style: none;
   padding: 0;
   display: flex;
-  flex-direction: column;
   gap: 20px;
   width: 100%;
   align-items: center;
-  transition: opacity 0.3s ease;
 
   li {
-    height: 40px;
     width: 100%;
     text-align: center;
 
-    a {
+    button {
+      background: none;
+      border: none;
       font-size: 16px;
       color: #ccc;
-      text-decoration: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      cursor: pointer;
 
       &:hover {
         color: #fff;
       }
     }
 
-    &.active a {
+    &.active button {
       color: #b0d8df;
       font-size: 18px;
       font-weight: bold;
@@ -150,7 +131,4 @@ nav {
   }
 }
 
-.header.expanded .menu a {
-  opacity: 1;
-}
 </style>

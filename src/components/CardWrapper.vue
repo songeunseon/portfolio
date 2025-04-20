@@ -1,5 +1,11 @@
 <template>
-  <section :id="id" ref="card" class="card" :class="{ visible }">
+  <section
+    :id="id"
+    :data-index="index"
+    ref="card"
+    class="card"
+    :class="{ visible }"
+  >
     <div class="content">
       <slot />
     </div>
@@ -9,10 +15,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const props = defineProps({
-  id: String,
-})
-
+const props = defineProps({ id: String })
 const visible = ref(false)
 const card = ref(null)
 
@@ -21,20 +24,26 @@ onMounted(() => {
     ([entry]) => {
       visible.value = entry.isIntersecting
     },
-    { threshold: 0.4 },
+    { threshold: 0.4 }
   )
-
   observer.observe(card.value)
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .card {
-  min-height: 100vh;
+  height: 100vh;
+  scroll-snap-align: start;
   display: flex;
   justify-content: center;
   align-items: center;
 
+  opacity: 0;
+  transition: opacity 0.6s ease;
+
+  &.visible {
+    opacity: 1;
+  }
   .content {
     width: 50vw;
     height: 60vh;
@@ -43,19 +52,12 @@ onMounted(() => {
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transition: all 0.6s ease;
-    transform: scale(0.3);
-    opacity: 0.5;
     text-align: center;
     display: flex;
     align-items: center;
     flex-direction: column;
   }
 
-  &.visible .content {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -73,9 +75,9 @@ onMounted(() => {
       padding: 20px;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transform: scale(1);
+      opacity: 0;
       transition: all 0.6s ease;
-      transform: scale(0.3);
-      opacity: 0.5;
       text-align: center;
       display: flex;
       align-items: center;
@@ -104,9 +106,9 @@ onMounted(() => {
       padding: 20px;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transform: scale(1);
+      opacity: 0;
       transition: all 0.6s ease;
-      transform: scale(0.3);
-      opacity: 0.5;
       text-align: center;
       display: flex;
       align-items: center;

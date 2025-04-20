@@ -1,8 +1,9 @@
 <template>
-  <CardWrapper id="community">
+  <CardWrapper id="community" :index="4" v-show="readyToShow">
     <div class="editor-container">
       <!-- 질문 작성 -->
       <ToastEditor v-model="newQuestion" />
+
       <button class="submit-btn" @click="submitQuestion">
         {{ editingIndex !== null ? '질문 수정' : '질문 등록' }}
       </button>
@@ -35,63 +36,20 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import CardWrapper from '@/components/CardWrapper.vue'
-import ToastEditor from '@/components/editor.vue'
+import ToastEditor from '@/components/editor.vue' // Toast UI Editor
 import { db, ref as dbRef, push, set, get, child, remove } from '@/firebase'
 
 const newQuestion = ref('')
 const qnaList = ref([])
 const editingIndex = ref(null)
+const readyToShow = ref(false)
 
-// 질문 등록 및 수정
-const submitQuestion = async () => {
-  if (!newQuestion.value.trim()) return
-
-  const item = {
-    question: newQuestion.value,
-    answer: '',
-    tempAnswer: '',
-  }
-
-  if (editingIndex.value !== null) {
-    // 수정 모드
-    const id = qnaList.value[editingIndex.value].id
-    await set(dbRef(db, `qna-list/${id}`), item)
-    qnaList.value[editingIndex.value] = { ...item, id }
-    editingIndex.value = null
-  } else {
-    // 신규 등록
-    const newRef = push(dbRef(db, 'qna-list'))
-    await set(newRef, item)
-    qnaList.value.push({ ...item, id: newRef.key })
-  }
-
-  newQuestion.value = ''
-}
-
-// 질문 삭제
-const deleteQuestion = async (index) => {
-  const item = qnaList.value[index]
-  if (!item.id) return
-  await remove(dbRef(db, `qna-list/${item.id}`))
-  qnaList.value.splice(index, 1)
-}
-
-// 질문 수정
-const editQuestion = (index) => {
-  newQuestion.value = qnaList.value[index].question
-  editingIndex.value = index
-}
-
-// 답변 등록
-const submitAnswer = (index) => {
-  const item = qnaList.value[index]
-  if (!item.tempAnswer.trim()) return
-  item.answer = item.tempAnswer
-  item.tempAnswer = ''
-}
-
-// Firebase 또는 로컬스토리지에서 불러오기
+// ✅ 렌더 안정 후 보이게 (스크롤 튐 방지)
 onMounted(async () => {
+  setTimeout(() => {
+    readyToShow.value = true
+  }, 400)
+
   const saved = localStorage.getItem('qna-list')
   if (saved) {
     qnaList.value = JSON.parse(saved)
@@ -107,17 +65,63 @@ onMounted(async () => {
   }
 })
 
-// 로컬스토리지 저장
+// 질문 등록 및 수정
+const submitQuestion = async () => {
+  if (!newQuestion.value.trim()) return
+
+  const item = {
+    question: newQuestion.value,
+    answer: '',
+    tempAnswer: '',
+  }
+
+  if (editingIndex.value !== null) {
+    const id = qnaList.value[editingIndex.value].id
+    await set(dbRef(db, `qna-list/${id}`), item)
+    qnaList.value[editingIndex.value] = { ...item, id }
+    editingIndex.value = null
+  } else {
+    const newRef = push(dbRef(db, 'qna-list'))
+    await set(newRef, item)
+    qnaList.value.push({ ...item, id: newRef.key })
+  }
+
+  newQuestion.value = ''
+}
+
+// 답변 등록
+const submitAnswer = (index) => {
+  const item = qnaList.value[index]
+  if (!item.tempAnswer.trim()) return
+  item.answer = item.tempAnswer
+  item.tempAnswer = ''
+}
+
+// 질문 수정
+const editQuestion = (index) => {
+  newQuestion.value = qnaList.value[index].question
+  editingIndex.value = index
+}
+
+// 질문 삭제
+const deleteQuestion = async (index) => {
+  const item = qnaList.value[index]
+  if (!item.id) return
+  await remove(dbRef(db, `qna-list/${item.id}`))
+  qnaList.value.splice(index, 1)
+}
+
+// localStorage 저장
 watch(
   qnaList,
   (val) => {
     localStorage.setItem('qna-list', JSON.stringify(val))
   },
-  { deep: true },
+  { deep: true }
 )
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .editor-container {
   padding: 20px;
   display: flex;

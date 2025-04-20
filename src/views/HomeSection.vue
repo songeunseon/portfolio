@@ -1,5 +1,5 @@
 <template>
-  <CardWrapper id="home">
+<CardWrapper id="home" :index="0">
     <p class="title">Profile</p>
     <div class="home-profile">
       <img src="/image/ses.jpg" />
