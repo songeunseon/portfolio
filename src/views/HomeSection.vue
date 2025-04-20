@@ -93,7 +93,7 @@ const experienceText = computed(() => {
       }
 
       &:hover {
-        color: #3a86ff;
+        color: #b0d8df;
       }
     }
   }

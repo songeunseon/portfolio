@@ -54,6 +54,7 @@ body, * {
   grid-template-columns: 25% 65%;
   height: 100vh;
   overflow: hidden;
+  background-color: #afd8df;
 }
 
 header {

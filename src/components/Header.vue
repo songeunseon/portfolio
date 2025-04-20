@@ -10,7 +10,7 @@
     </div>
 
     <div class="toggle-icon">
-      {{ isExpanded ? '<' : '>' }}
+      {{ isExpanded ? '◀' : '▶' }}
     </div>
 
     <nav>
@@ -96,13 +96,13 @@ onMounted(async () => {
 
 .toggle-icon {
   color: #ccc;
-  font-size: 20px;
+  font-size: 13px;
   margin-bottom: 20px;
   user-select: none;
   pointer-events: none;
   position: absolute;
   right: -20px;
-  background-color: #222;
+  background-color: #222 !important;
   width: 20px;
   height: 50px;
   display: flex;
