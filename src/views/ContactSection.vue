@@ -116,7 +116,7 @@ watch(showMailPreview, (val) => {
 const showGithub = ref(false)
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .partGroup {
   width: 100%;
   height: 100%;
@@ -134,7 +134,10 @@ const showGithub = ref(false)
   width: 80%;
 }
 .part {
-  width: 80%;
+  position: relative;
+  left: -30%;
+  transform: translate(0%);
+  width: fit-content;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -144,6 +147,7 @@ const showGithub = ref(false)
     transform 0.5s ease,
     opacity 0.3s ease;
   opacity: 0.5;
+  cursor: pointer;
 }
 .part img {
   width: fit-content;

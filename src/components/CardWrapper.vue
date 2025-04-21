@@ -1,11 +1,5 @@
 <template>
-  <section
-    :id="id"
-    :data-index="index"
-    ref="card"
-    class="card"
-    :class="{ visible }"
-  >
+  <section :id="id" :data-index="index" ref="card" class="card" :class="{ visible }">
     <div class="content">
       <slot />
     </div>
@@ -15,7 +9,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const props = defineProps({ id: String })
+const props = defineProps({
+  id: String,
+  index: Number, // ✅ index props 정의
+})
+
 const visible = ref(false)
 const card = ref(null)
 
@@ -24,9 +22,14 @@ onMounted(() => {
     ([entry]) => {
       visible.value = entry.isIntersecting
     },
-    { threshold: 0.4 }
+    { threshold: 0.4 },
   )
-  observer.observe(card.value)
+
+  if (card.value) {
+    // ✅ data-index 속성 부여 (옵션)
+    card.value.setAttribute('data-index', props.index)
+    observer.observe(card.value)
+  }
 })
 </script>
 
@@ -46,7 +49,7 @@ onMounted(() => {
   }
   .content {
     width: 50vw;
-    height: 60vh;
+    height: 50vh;
     background: #1e1e1e;
     color: #e9e9e9;
     padding: 20px;
@@ -56,8 +59,8 @@ onMounted(() => {
     display: flex;
     align-items: center;
     flex-direction: column;
+    position: relative;
   }
-
 }
 
 @media screen and (max-width: 1024px) {

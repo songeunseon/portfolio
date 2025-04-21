@@ -1,5 +1,5 @@
 <template>
-<CardWrapper id="home" :index="0">
+  <CardWrapper id="home" :index="0">
     <p class="title">Profile</p>
     <div class="home-profile">
       <img src="/image/ses.jpg" />
@@ -36,19 +36,34 @@ const toggleInfo = (type) => {
   showInfo.value[type] = !showInfo.value[type]
 }
 
-// 경력 계산
+//경력 계산
 const startDate = new Date('2023-12-04')
 const today = new Date()
-const totalDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24))
+
+// 날짜 차이만 계산 (시간 무시)
+const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())
+const end = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+
+const diffTime = end.getTime() - start.getTime()
+const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1
 
 const experienceText = computed(() => {
-  let years = today.getFullYear() - startDate.getFullYear()
-  let months = today.getMonth() - startDate.getMonth()
+  let years = end.getFullYear() - start.getFullYear()
+  let months = end.getMonth() - start.getMonth()
+  let days = end.getDate() - start.getDate()
+
+  if (days < 0) {
+    months--
+    const prevMonthEnd = new Date(end.getFullYear(), end.getMonth(), 0).getDate()
+    days += prevMonthEnd
+  }
+
   if (months < 0) {
     years--
     months += 12
   }
-  return `${years}년 ${months}개월\n총 ${totalDays}일째`
+
+  return `${years}년 ${months}개월 ${days + 3}일째 \n 총 ${totalDays}일째`
 })
 </script>
 
@@ -67,7 +82,7 @@ const experienceText = computed(() => {
   height: 100%;
 
   & img {
-    width: 200px;
+    height: 250px;
     border-radius: 10px;
   }
 
@@ -76,11 +91,11 @@ const experienceText = computed(() => {
     flex-direction: column;
     align-items: flex-start;
     width: 50%;
-
+    height: 250px;
     p {
       font-size: 20px;
       line-height: 1.56;
-      padding: 10px 0;
+      // padding: 10px 0;
       cursor: pointer;
       user-select: none;
       transition: color 0.3s ease;

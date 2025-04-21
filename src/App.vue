@@ -45,7 +45,7 @@ onMounted(async () => {
         activeSection.value = visible.target.id
       }
     },
-    { threshold: 0.6 }
+    { threshold: 0.6 },
   )
 
   const sections = document.querySelectorAll('section.card')
@@ -54,7 +54,8 @@ onMounted(async () => {
 </script>
 
 <style>
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -67,6 +68,13 @@ html, body {
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  background-color: #b0d8df;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+#app::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
 }
 
 /* 각 섹션 기본 스타일 */
