@@ -35,7 +35,7 @@ const props = defineProps({
 const isExpanded = ref(false)
 
 const menuItems = [
-  { id: 'home', label: 'Home' },
+  { id: 'profile', label: 'Profile' },
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
@@ -64,6 +64,7 @@ const scrollToSection = (id) => {
   align-items: center;
   z-index: 10;
   transition: width 0.5s ease;
+  padding: 0 50px;
 
 }
 
@@ -95,26 +96,24 @@ const scrollToSection = (id) => {
 }
 
 nav {
-  width: fit-content;
-  margin-right: 5%;
+  width: 80%;
 }
 
 .menu {
   list-style: none;
-  padding: 0;
+  padding-right: 100px;
   display: flex;
-  gap: 20px;
-  width: 100%;
   align-items: center;
+  justify-content: flex-end;
+  gap: 2vw;
 
   li {
-    width: 100%;
     text-align: center;
 
     button {
       background: none;
       border: none;
-      font-size: 16px;
+      font-size: 1.2vw;
       color: #ccc;
       cursor: pointer;
 
@@ -125,10 +124,9 @@ nav {
 
     &.active button {
       color: #b0d8df;
-      font-size: 18px;
+      font-size: 2vw;
       font-weight: bold;
     }
   }
 }
-
 </style>

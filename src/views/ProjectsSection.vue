@@ -1,15 +1,12 @@
 <template>
   <CardWrapper id="projects" :index="2">
-    <div class="projects-container">
+    <div class="partGroup">
       <h2 class="title">Projects</h2>
-      <p class="subtitle">다양한 실무 및 개인 프로젝트를 수행했습니다.</p>
 
       <!-- 탭 선택 (실무 / 개인) -->
       <div class="tabs">
+        <button :class="{ active: activeTab === 'personal' }" @click="changeTab('personal')">개인</button>
         <button :class="{ active: activeTab === 'work' }" @click="changeTab('work')">실무</button>
-        <button :class="{ active: activeTab === 'personal' }" @click="changeTab('personal')">
-          개인
-        </button>
       </div>
 
       <!-- 카테고리 필터 -->
@@ -47,7 +44,7 @@
 import { ref, computed } from 'vue'
 import CardWrapper from '@/components/CardWrapper.vue'
 
-const activeTab = ref('work')
+const activeTab = ref('personal')
 const activeCategory = ref('전체')
 
 const categoryMap = {
@@ -109,14 +106,21 @@ const filteredProjects = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-.projects-container {
-  width: 90%;
-  margin: auto;
+.partGroup {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow: visible;
+  position: relative;
 }
 .title {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 50px;
+  text-align: start;
+  width: 80%;
 }
 .subtitle {
   font-size: 16px;

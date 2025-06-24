@@ -40,7 +40,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-
   opacity: 0;
   transition: opacity 0.6s ease;
 
@@ -49,7 +48,10 @@ onMounted(() => {
   }
   .content {
     width: 50vw;
-    height: 50vh;
+    height: 60vh;
+    position: relative;
+    top: 50px;
+    transform: translate(-50% -50%);
     background: #1e1e1e;
     color: #e9e9e9;
     padding: 20px;
@@ -71,8 +73,8 @@ onMounted(() => {
     align-items: center;
 
     .content {
-      width: 50vw;
-      height: 80vh;
+      width: 80vw;
+      height: 50vh;
       background: #1e1e1e;
       color: #e9e9e9;
       padding: 20px;
@@ -102,8 +104,8 @@ onMounted(() => {
     align-items: center;
 
     .content {
-      width: 50vw;
-      height: 80vh;
+      width: 80vw;
+      height: 70vh;
       background: #1e1e1e;
       color: #e9e9e9;
       padding: 20px;
